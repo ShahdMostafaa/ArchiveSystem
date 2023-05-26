@@ -1,0 +1,144 @@
+﻿@{
+    Layout = "_UserLayout";
+}
+<style>
+    body {
+        background-image: url(https://cdn.aukro.cz/images/sk1623352698430/730x548/pohlednice-cervena-postovni-schranka-vlastni-vyroba-cista-vf-101957236.jpeg);
+        background-repeat: repeat;
+        background-attachment: fixed;
+        background-size: 100% 100%;
+    }
+
+    body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .image-container {
+        height: 100%;
+    }
+
+    .full-screen-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: fixed;
+    }
+
+    .form-container {
+        height: 480px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-group input {
+        flex: 1;
+    }
+
+    .form-label {
+        font-size: 14px;
+    }
+
+    .form-control-lg {
+        font-size: 14px;
+    }
+
+    .thumbnail {
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+        overflow: hidden;
+    }
+
+        .thumbnail img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+</style>
+
+<header style="text-align: center">
+    <br />
+    <h1 style="color:coral"> View Message </h1>
+</header>
+
+<section class="vh-100">
+    @model ArchiveSystem.Models.Message
+
+
+    <div class="form-outline mb-4">
+        <div class="form-container">
+            <form asp-controller="Message" asp-action="ViewMessage" method="get">
+                <style>
+                    /* Your existing CSS code here */
+
+                    form button {
+                        display: block;
+                        margin: 0 auto;
+                        border-radius: 10px; /* Add border-radius property with a value to set the desired rounded edge */
+                    }
+                </style>
+
+                <div>
+                    <!--Title-->
+                    <div>
+                        <label style="color:#E6E3D9" class="form-label" for="form1Example13">Title</label>
+                        <input style="text-align: center" type="text" id="form1Example13" value="@Model.Title" class="form-control form-control-lg" readonly />
+
+                    </div>
+                    <!--send Date -->
+                    <div>
+                        <label style="color:#E6E3D9" class="form-label" for="form1Example23">Send Date</label>
+                        <input type="datetime" style="text-align: center" id="form1Example13" value="@Model.SendDate" class="form-control form-control-lg" readonly />
+                    </div>
+                    @*<!--Receive Date -->
+                    <div>
+                        <label style="color:#E6E3D9" class="form-label" for="form1Example23">Receive Date</label>
+                        <input type="datetime" style="text-align: center" id="form1Example13" value="@Model.RcvTime" class="form-control form-control-lg" readonly />
+                    </div>*@
+                    <!-- Address of the letter -->
+                    <div>
+                        <label style="color:#E6E3D9" class="form-label" for="form1Example23"> Address of the letter</label>
+                        <input type="text" style="text-align: center" id="form1Example13" value="@Model.MessageAddress" class="form-control form-control-lg" readonly />
+                    </div>
+
+                    <!-- The content of the letter -->
+                    <div>
+                        <label style="color:#E6E3D9" class="form-label" for="form1Example23"> The content of the letter</label>
+                        <textarea type="text" style="text-align: center" id="form1Example13" class="form-control form-control-lg" readonly rows="3" cols="50">@Model.MessageText</textarea>
+                    </div>
+
+                    <!-- The destination from which the letter was received -->
+                    <div>
+                        <label style="color:#E6E3D9" class="form-label" for="form1Example23"> The destination from which the letter was received</label>
+                        <input type="text" style="text-align: center" id="form1Example13" value="@Model.MessageDestination" class="form-control form-control-lg" readonly />
+                    </div>
+
+                    <br />
+                    <div style="display: flex; justify-content: center;">
+                        <!--    asp-route-id=" Model.AttachmentId  -->
+                        <div asp-action="AttachmentView" asp-controller="User">
+                            <button style="background-color:#DCABAB; border-color: white; border-radius: 25px; color: white; padding: 10px 20px; margin-right: 10px;" asp-route-id=" @Model.MessageId " asp-action="AttachmentView" asp-controller="Message">Attachment</button>
+                        </div>
+
+                      </div>
+                    <div style="display: flex; justify-content: center;">
+                    </div>
+                </div>
+
+            </form>
+            <br />
+        </div>
+        <br />
+    </div>
+    <div>
+    </div>
+</section>
+

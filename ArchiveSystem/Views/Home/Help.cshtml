@@ -1,0 +1,65 @@
+﻿@if (Model.IsAdmin == true) // Check if the user is an admin 
+{
+    Layout = "_AdminLayout"; // Set the layout to the admin layout
+}
+else
+{
+    Layout = "_UserLayout"; // Set the layout to the user layout 
+}
+@model ArchiveSystem.Models.UserAcc // Specify the model for this view
+
+<div class="row">
+    <div class="col-md-3 border-right">
+        <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+            <img class="rounded-circle mt-5" width="150px" src="https://assets.nicepagecdn.com/11a8ddce/4584696/images/24770152_101.png">
+            <span class="font-weight-bold"></span><span class="text-black-50"></span>
+        </div>
+    </div>
+    <div class="col-md-5 border-right">
+        <div class="p-3 py-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h1 class="text-right">Help</h1>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="text-right"> * If you want to obtain the program's services that allow you to view sent and received messages, all messages, and the ability to send a new request.</h4>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="text-right"> * If you want to know more about us, you can by pressing on</h4>
+            </div>
+            <div class="center">
+                <div class="btn-group" class="mx-auto" style="width: 200px;">
+                    @if (Model.IsAdmin == true) // Check if the user is an admin 
+                    {
+                        <a href="/Home/AdminHome/#about" class="btn btn-primary active" aria-current="page">About US</a>
+                    }
+                    else
+                    {
+                        <a href="/Home/UserHome/#about" class="btn btn-primary active" aria-current="page">About US</a>
+                    }
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="text-right"> * If you need more help, you can contact us by pressing on</h4>
+            </div>
+            <div class="center">
+                <div class="btn-group" class="mx-auto" style="width: 200px;">
+                    @if (Model.IsAdmin == true) // Check if the user is an admin
+                    {
+                        <a href="/Home/AdminHome/#contact" class="btn btn-primary active" aria-current="page">Contact US</a>
+                    }
+                    else
+                    {
+                        <a href="/Home/UserHome/#contact" class="btn btn-primary active" aria-current="page">Contact US</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .center {
+        margin: 20px;
+        margin-left: 25%;
+    }
+</style>

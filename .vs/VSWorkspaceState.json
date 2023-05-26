@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\ArchiveSystem",
+    "\\ArchiveSystem\\Data",
+    "\\ArchiveSystem\\Views",
+    "\\ArchiveSystem\\Views\\Message",
+    "\\ArchiveSystem\\Views\\User"
+  ],
+  "SelectedNode": "\\ArchiveSystem\\Views\\Message\\MesgDelUser.cshtml",
+  "PreviewInSolutionExplorer": false
+}

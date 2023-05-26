@@ -1,0 +1,155 @@
+﻿@{
+    Layout = "_UserLayout"; // Sets the layout for the page
+}
+
+<head>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+</head>
+
+<div class="container text-center mb-5 login-btn">
+    <div>
+        <h1 style="color:black">Export Message</h1> <!-- Heading for the page -->
+        <hr class="w/75" /> <!-- Horizontal line separator -->
+    </div>
+</div>
+
+<style>
+    .input-group {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
+    }
+
+    select {
+        width: 150px;
+    }
+
+        select:focus {
+            min-width: 150px;
+            width: auto;
+        }
+</style>
+
+<style>
+    body {
+        background-image: url('../login/img/bench-accounting-nvzvopqw0gc-unsplash.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100% 100%;
+    }
+</style>
+
+<div>
+    <div class="input-group">
+        <select id="sortOption" class="form-select" aria-label="Select sorting option">
+            <option value="date">Send Date</option>
+            <option value="title">Title/Email</option>
+            <option value="date_asc">Send Date (Ascending)</option>
+            <option value="date_desc">Send Date (Descending)</option>
+            <option value="title_asc">Title (Ascending)</option>
+            <option value="title_desc">Title (Descending)</option>
+        </select>
+        <div id="inputContainer"></div>
+        <button id="searchButton" type="button" style="color:white; background-color:#CD9775; border-color:#CD9775" class="btn btn-outline-primary">Search</button>
+    </div>
+</div>
+
+<script>
+    const searchButton = document.getElementById('searchButton');
+    const sortOptionSelect = document.getElementById('sortOption');
+    const inputContainer = document.getElementById('inputContainer');
+    let inputType = 'date'; // Default input type
+
+    // Function to create different input types based on the selected option
+    function createInput(type) {
+        // Clear previous input
+        inputContainer.innerHTML = '';
+
+        // Create and append the input element
+        const input = document.createElement('input');
+        input.id = 'searchInput';
+        input.type = type;
+        input.className = 'form-control';
+        input.setAttribute('aria-label', 'Sizing example input');
+        input.setAttribute('aria-describedby', 'inputGroup-sizing-sm');
+        inputContainer.appendChild(input);
+    }
+
+    // Function to handle search button click
+    function handleSearch() {
+        // Get the search query from the input
+        var searchQuery = document.getElementById('searchInput').value;
+
+        // Get the selected sorting option
+        var sortOption = document.getElementById('sortOption').value;
+
+        // Build the URL with the search query and sorting option as query parameters
+        var url = `https://localhost:44339/data/Export?query=${encodeURIComponent(searchQuery)}&sort=${sortOption}`;
+
+        // Redirect to the URL
+        window.location.href = url;
+    }
+
+    // Add event listener for the sorting option change
+    sortOptionSelect.addEventListener('change', function () {
+        // Get the selected option
+        var selectedOption = this.value;
+
+        // Determine theinput type based on the selected option
+        if (selectedOption === 'date' || selectedOption === 'date_asc' || selectedOption === 'date_desc') {
+            inputType = 'date';
+        } else {
+            inputType = 'text';
+        }
+
+        // Create the input based on the input type
+        createInput(inputType);
+    });
+
+    // Add event listener for the search button click
+    searchButton.addEventListener('click', handleSearch);
+
+    // Set the initial input type based on the selected option
+    createInput(inputType);
+</script>
+
+<div class="container rounded mt-5 mb-5">
+    <div id="datatable"></div>
+    <div dir="ltr">
+        <table class="table table-striped table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Address of Message Recipient</th>
+                    <th scope="col">Show the letter</th>
+                </tr>
+            </thead>
+            <tbody id="searchResults">
+                <!-- Render the initial search results on page load using server-side code -->
+                @foreach (var item in ViewBag.messages) // Loops through the messages from the server-side
+                {
+                    <tr>
+                        <td>@item.MessageId</td>
+                        <td>@item.SendDate</td>
+                        <td>@item.Title</td>
+                        <td>@item.MessageDestination</td>
+                        <td>
+                            <a href="/Message/ViewMessage/@item.MessageId" class="btn btn-outline-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Show">
+                                <i class="fa fa-table"></i>Show
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Add Bootstrap JS dependencies -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
